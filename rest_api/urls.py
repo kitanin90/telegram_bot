@@ -1,6 +1,5 @@
 from django.urls import path, include
 from . import views
-import rest_api
 from rest_framework import routers
 
 
