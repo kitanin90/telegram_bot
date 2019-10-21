@@ -13,3 +13,9 @@ class NoteView(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
 
+
+class Reg_userView(viewsets.ModelViewSet):
+    queryset = Note.objects.all()
+    # if TG_user.tg_chat_id in TG_user.objects.get(tg_chat_id=tg_chat_id):
+    #     print('Добавляем пользователя')
+    pass

@@ -4,7 +4,7 @@
 import telebot, time
 import requests
 from telebot import apihelper, types
-from rest_api.views import TG_userView
+
 
 # Configure
 TOKEN = '959039109:AAE0sPZPtj_bfbgs3zUhYhP78UKivIXo19w'
@@ -25,10 +25,15 @@ text_messages = {
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(message.from_user.id, text_messages['start'].format(name=message.from_user.first_name))
-    r = requests.get('http://localhost:8000')
-    all_user = TG_userView.get_object()
-    bot.send_message(message.from_user.id)
-    print(r)
+    r = requests.get('http://localhost:8000/TG_user')
+    print(r.text)
+
+
+@bot.message_handler(commands=['allnote'])
+def allnote(message):
+    allnotedb = requests.get('http://localhost:8000/Note')
+    bot.send_message(message.from_user.id, allnotedb)
+    print(allnotedb)
 
 
 @bot.message_handler(commands=['reg'])
@@ -42,9 +47,9 @@ def reg(message):
     bot.send_message(message.chat.id, 'Сколько тебе лет?', reply_markup=keyboard)
 
 
-@bot.message_handler(func=lambda m: True)
-def echo_all(message):
-    bot.reply_to(message.message.text)
+# @bot.message_handler(func=lambda m: True)
+# def echo_all(message):
+#     bot.reply_to(message.message.text)
 
 
 while True:
